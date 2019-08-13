@@ -1,5 +1,41 @@
+<html>
+<head>
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Dosis'>
+    <style>
+        #loading{
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #fff
+            url('https://loading.io/spinners/vortex/lg.vortex-spiral-spinner.gif')
+            no-repeat center center;
+            z-index: 99999;
+        }
+    </style>
+</head>
+<body onload="myFunction()">
+<div id="loading"></div>
+</body>
 
+<script>
+    // $(document).ready(function(){
+    // 	$('div#loading').removeAttr('id');
+    // });
+    var preloader = document.getElementById("loading");
+    // window.addEventListener('load', function(){
+    // 	preloader.style.display = 'none';
+    // 	})
+
+    function myFunction(){
+        preloader.style.display = 'none';
+    };
+</script>
+</html>
 <?php
+if(!isset($_SESSION['server'])){
+    session_start();
+}
+
 include "global/config.php";
 include "control/function.php";
 include "model/img.resize.php";
