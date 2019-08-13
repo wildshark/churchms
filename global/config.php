@@ -86,7 +86,10 @@ function connection($data){
     curl_setopt($ch, CURLOPT_URL, $url);
 
 //return the transfer as a string
+    curl_setopt($ch, CURLOPT_VERBOSE, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
 
 // $output contains the output string
     $output = curl_exec($ch);
