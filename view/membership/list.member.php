@@ -28,13 +28,13 @@
                 <?php foreach ($record as $row):if(isset($n)){$n = $n + 1;}else{$n = 1;}?>
                     <tr>
                         <td class="text-center"><?php echo $n;?></td>
-                        <td class="text-center"><?php echo $row->fname;?></td>
-                        <td class="text-center"><?php echo $row->surname;?></td>
-                        <td class="text-right"><?php if($row->genderID == 1){echo $fm = "Male";}elseif($row->genderID == 2){echo $fm ="Female";}else{echo "null";};?></td>
-                        <td class="text-right"><?php echo $row->marital;?></td>
-                        <td class="text-right"><?php echo $row->occupation;?></td>
-                        <td class="text-right"><?php echo $row->mobile1;?></td>
-                        <td class="text-right"><?php echo $row->mobile2;?></td>
+                        <td class="text-center"><?php echo ucfirst(strtolower($row->fname));?></td>
+                        <td class="text-center"><?php echo ucfirst(strtolower($row->surname));?></td>
+                        <td class="text-left"><?php if($row->genderID == 1){echo $fm = "Male";}elseif($row->genderID == 2){echo $fm ="Female";}else{echo "null";};?></td>
+                        <td class="text-left"><?php echo ucfirst(strtolower($row->marital));?></td>
+                        <td class="text-left"><?php echo ucfirst(strtolower($row->occupation));?></td>
+                        <td class="text-left"><?php echo $row->mobile1;?></td>
+                        <td class="text-left"><?php echo $row->mobile2;?></td>
                         <td class='text-center'>
                             <div class='btn-group'>
                                 <a href='?_route=view-member&id=<?php echo $row->memberID;?>' class='btn btn-xs btn-default' data-toggle='tooltip' title='Edit Client'><i class='ion-edit'></i></a>

@@ -109,7 +109,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <span class="navbar-page-title"><?php echo $app->profile;?></span>
+                        <span class="navbar-page-title"><?php echo $template['title'];?></span>
                     </div>
 
                     <div class="collapse navbar-collapse" id="header-navbar-collapse">

@@ -35,7 +35,7 @@ switch ($page) {
         break;
 
     case "dashboard";
-        $app->dashboard = "Dashboard";
+        $template['title'] = "Dashboard";
 
         $cash['endpoint'] ='dashboard';
         $result = config\connection($cash);
@@ -122,14 +122,14 @@ switch ($page) {
             }
         }
 
-        $app->profile = "New Member";
+        $template['title'] = "New Member";
         $content = "membership/add.member.php";
         require "template/profile.php";
         break;
 
     case"view-member";
 
-        $app->profile = "Membership Profile";
+        $template['title'] = "Membership Profile";
         $view['endpoint'] ="filter-member";
         $view['memberID']=$_GET['id'];
 
@@ -172,7 +172,7 @@ switch ($page) {
     break;
 
     case"list.member";
-        $app->table = "Membership List";
+        $template['title'] = "Membership List";
         $r['endpoint'] ="list-member";
         $result = config\connection($r);
         $record = json_decode($result);
@@ -188,7 +188,7 @@ switch ($page) {
     break;**/
 
     case"bank.book";
-        $app->table = "Bank Book";
+        $template['title'] = "Bank Book";
 
         $r['endpoint'] ='dashboard';
         $result = config\connection($r);
@@ -213,7 +213,7 @@ switch ($page) {
     break;
 
     case"cash.book";
-        $app->table = "Cash Book";
+        $template['title'] = "Cash Book";
 
         $r['endpoint'] ='dashboard';
         $result = config\connection($r);
@@ -245,25 +245,25 @@ switch ($page) {
         break;
 
     case"set.church";
-        $app->profile = "Church Setup";
+        $template['title'] = "Church Setup";
         $content = "setup/church.php";
         require "template/profile.php";
         break;
 
     case"single.sms";
-        $app->profile = "SMS Box";
+        $template['title'] = "SMS Box";
         $content = "sms.php";
         require "template/profile.php";
         break;
 
     case"bulk.sms";
-        $app->profile = "SMS Box";
+        $template['title'] = "SMS Box";
         $content = "sms.php";
         require "template/profile.php";
         break;
 
     case"fundraising-data";
-        $app->table = "Fundraising";
+        $template['title'] = "Fundraising";
 
         $r['endpoint'] ='fundraising-data';
         $result = config\connection($r);
@@ -276,7 +276,7 @@ switch ($page) {
 
     case"fundraising-detail";
 
-        $app->table = "Fundraising :". $_GET['t'] ;
+        $template['title'] = "Fundraising :". $_GET['t'] ;
         $view['endpoint'] = 'fundraising-summary';
         $view['id'] = $_REQUEST['id'];
         //summary
@@ -306,7 +306,7 @@ switch ($page) {
     break;
 
     case"tithe-data";
-        $app->table = "Tithe";
+        $template['title'] = "Tithe";
         $curr_total['endpoint'] = "tithe-current-amount";
         $curr_total['date'] = date("Y-m-d");
         $result = config\connection($curr_total);
@@ -333,19 +333,17 @@ switch ($page) {
 
     case "financial-report";
 
-        $app->table ="Financial-Report";
-
+        $template['title'] ="Financial-Report";
         $fin['start'] = $_REQUEST['start'];
         $fin['end'] = $_REQUEST['end'];
 
         $fin['endpoint'] = "income-financial-report";
         $result = config\connection($fin);
-        $income = json_decode($result);
+        $income = json_decode($result,true);
 
         $fin['endpoint'] = "expenses-financial-report";
         $result = config\connection($fin);
-        $expenses = json_decode($result);
-
+        $expenses = json_decode($result,true);
 
         $content = "account_book/financial.report.php";
         require "template/print.php";

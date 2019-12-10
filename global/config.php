@@ -73,7 +73,7 @@ function connection($data){
     //$url = $url."?".$post;
 
     if($_SESSION['server'] == 'local'){
-        $url="http://localhost/krypton/api/?application=church-ms&".$post;
+        $url="http://localhost/churchms20/data/?".$post;
     }elseif($_SESSION['server'] == 'server'){
         $url="https://krypton-react.herokuapp.com/api/?application=church-ms&".$post;
     }else{

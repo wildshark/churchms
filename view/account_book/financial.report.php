@@ -42,44 +42,45 @@
                     </thead>
                     <tbody>
                         <?php
-                        foreach($income as $row):
-                            if(isset($serial_i)){
-                                $serial_i = $serial_i + 1;
-                            }else{
-                                $serial_i = 1;
-                            }
-
-                            if($row->type == 1){
-                                $type = "Cash";
-                            }else{
-                                $type = "Bank";
-                            }
-
-                            if($row->book == 1){
-                                $title = "Tithe";
-                            }else{
-                                $bookID = $row->book;
-                                $book['endpoint'] = "books";
-                                $books = config\connection($book);
-                                $books = json_decode($books,true);
-                                foreach($books as $bk_id){
-                                    if($bk_id['book_id'] == $bookID){
-                                        $title = $bk_id['title'];
-                                    }
+                        if(isset($income)){
+                            foreach($income as $r){
+                                if(isset($serial_i)){
+                                    $serial_i = $serial_i + 1;
+                                }else{
+                                    $serial_i = 1;
                                 }
-                            }
 
+                                if($r['tranTypeID'] == 1){
+                                    $type = "Cash";
+                                }else{
+                                    $type = "Bank";
+                                }
+
+                                $amount = number_format($r['income'],2);
+                                echo"
+                                   <tr>
+                                        <td class='text-center'>{$serial_i}</td>
+                                        <td>
+                                            <p class='font-500 m-b-0'>{$r['book']}</p>
+                                        </td>
+                                        <td class='text-center'>{$type}</td>
+                                        <td class='text-right'>{$amount}</td>
+                                    </tr>
+                                ";
+                            }
+                        }else{
                             echo"
                                 <tr>
-                                    <td class='text-center'>{$serial_i}</td>
+                                    <td class='text-center'>Null</td>
                                     <td>
-                                        <p class='font-500 m-b-0'>{$title}</p>
+                                        <p class='font-500 m-b-0'>Null</p>
                                     </td>
-                                    <td class='text-center'>{$type}</td>
-                                    <td class='text-right'>{$row->income}</td>
+                                    <td class='text-center'>Null</td>
+                                    <td class='text-right'>Null</td>
                                 </tr>
                             ";
-                        endforeach;
+                        }
+
                         ?>
                     </tbody>
                 </table>
@@ -97,44 +98,46 @@
                     </thead>
                     <tbody>
                     <?php
-                    foreach($expenses as $row):
-                        if(isset($serial_e)){
-                            $serial_e = $serial_e + 1;
-                        }else{
-                            $serial_e = 1;
-                        }
-
-                        if($row->type == 1){
-                            $type = "Cash";
-                        }else{
-                            $type = "Bank";
-                        }
-
-                        if($row->book == 1){
-                            $title = "Tithe";
-                        }else{
-                            $bookID = $row->book;
-                            $book['endpoint'] = "books";
-                            $books = config\connection($book);
-                            $books = json_decode($books,true);
-                            foreach($books as $bk_id){
-                                if($bk_id['book_id'] == $bookID){
-                                    $title = $bk_id['title'];
-                                }
+                    if(isset($expenses)){
+                        foreach($expenses as $r){
+                            if(isset($serial_e)){
+                                $serial_e = $serial_e + 1;
+                            }else{
+                                $serial_e = 1;
                             }
-                        }
 
-                        echo"
+                            if($r['tranTypeID'] == 1){
+                                $type = "Cash";
+                            }else{
+                                $type = "Bank";
+                            }
+
+                            $amount = number_format($r['expenses'],2);
+
+                            echo"
                                 <tr>
                                     <td class='text-center'>{$serial_e}</td>
                                     <td>
-                                        <p class='font-500 m-b-0'>{$title}</p>
+                                        <p class='font-500 m-b-0'>{$r['book']}</p>
                                     </td>
                                     <td class='text-center'>{$type}</td>
-                                    <td class='text-right'>{$row->expenses}</td>
+                                    <td class='text-right'>{$amount}</td>
                                 </tr>
                             ";
-                    endforeach;
+                        }
+                    }else{
+                        echo"
+                                <tr>
+                                    <td class='text-center'>Null</td>
+                                    <td>
+                                        <p class='font-500 m-b-0'>Null</p>
+                                    </td>
+                                    <td class='text-center'>Null</td>
+                                    <td class='text-right'>Null</td>
+                                </tr>
+                            ";
+                    }
+
                     ?>
                     </tbody>
                 </table>
