@@ -38,13 +38,12 @@ include "global/config.php";
 include "control/function.php";
 include "model/img.resize.php";
 $result = new stdClass();
-$app = new stdClass();
 //start bio
 $bio = config\bios();
 
 $_SESSION['token'] = $bio['terminal_key'];
 //choose there url connection for the server
-$_SESSION['server'] = 'local';
+$_SESSION['server'] = 'server';
 $_SESSION['church'] = '1';
 
 if(isset($_REQUEST['submit'])){

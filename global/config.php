@@ -69,13 +69,20 @@ function connection($data){
         $data['church_id'] = 0;
     }
 
+    if($_SESSION['server'] === 'local'){
+        $data['mode'] = 'offline';
+    }else{
+        $data['mode'] = 'online';
+    }
+
     $post = http_build_query($data);
     //$url = $url."?".$post;
 
     if($_SESSION['server'] == 'local'){
         $url="http://localhost/churchms20/data/?".$post;
     }elseif($_SESSION['server'] == 'server'){
-        $url="https://krypton-react.herokuapp.com/api/?application=church-ms&".$post;
+     echo   $url="http://krypton.myddns.rocks/churchms/data/?".$post;
+     exit();
     }else{
         header("location: ?_route=dashboard&connection=error");
     }
