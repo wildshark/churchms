@@ -15,5 +15,7 @@ if ($church_db->connect_error) {
     die("Connection failed: " . $church_db->connect_error);
 }else{
     $data['server'] = "start";
+    $data['application'] = "churchms";
     $data['clock'] = time();
+
 }
