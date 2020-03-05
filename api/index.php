@@ -1,12 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Andrew Quaye
- * Date: 08/07/2019
- * Time: 1:28 AM
- */
 
-include "global/db.php";
+include "connection.php";
+
 include "modules/user.account.php";
 include "modules/dashboard.php";
 include "modules/combo.php";
@@ -16,20 +11,19 @@ include "modules/book.keep.php";
 include "modules/fundraising.php";
 include "modules/tithe.php";
 
-if(!$_REQUEST){
-    $data['error'] = 501;
-    $data['msg'] ='missing terminal';
+
+if((!$_REQUEST)|| (!$_REQUEST['endpoint'])){
+    $data["error"]=500;
+    $data["msg"]='missing peremeter';
 }else{
-
+    
     $endpoint = $_REQUEST['endpoint'];
-
+    $post_data = $_REQUEST;
     switch ($endpoint){
 
         case"login";
-            $login['username'] = $_REQUEST['username'];
-            $login['password'] = $_REQUEST['password'];
-
-            $result = user\modal::login($church_db,$login);
+            
+            $result = user\modal::login($church_db,$post_data);
             if($result == false){
                 $data['error'] = 500;
                 $data['msg'] = "invalid username and password";
@@ -45,19 +39,7 @@ if(!$_REQUEST){
 
         case "sign-up";
 
-            $sign_up['id'] = $_REQUEST['church_id'];
-            $sign_up['name'] = $_REQUEST['name'];
-            $sign_up['surname'] = $_REQUEST['surname'];
-            $sign_up['church'] = $_REQUEST['church'];
-            $sign_up['prefix'] = $_REQUEST['prefix'];
-            $sign_up['mobile'] = $_REQUEST['mobile'];
-            $sign_up['email'] = $_REQUEST['email'];
-            $sign_up['website'] = $_REQUEST['website'];
-            $sign_up['address'] = $_REQUEST['address'];
-            $sign_up['username'] = $_REQUEST['username'];
-            $sign_up['password'] = $_REQUEST['password'];
-
-            $result = user\modal::sign_up($church_db,$sign_up);
+            $result = user\modal::sign_up($church_db,$post_data);
             if($result == false){
                 $data['error'] = 500;
                 $data['msg'] = "invalid username and password";
@@ -65,8 +47,6 @@ if(!$_REQUEST){
                 $data['error'] = 200;
                 $data['msg'] = "successful";
             }
-            break;
-
         break;
 
         case"dashboard";
@@ -714,10 +694,15 @@ if(!$_REQUEST){
                 $data = $result;
             }
        break;
+
+
+        default:
+            $data['error'] = 600;
+            $data['msg']="missing endpoint";
     }
-    $church_db->close();
 }
 
 header('Access-Control-Allow-Origin: *');
 header("Content-type: application/json; charset=utf-8");
 echo json_encode($data);
+?>

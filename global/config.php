@@ -79,10 +79,9 @@ function connection($data){
     //$url = $url."?".$post;
 
     if($_SESSION['server'] == 'local'){
-        $url="http://localhost/churchms20/data/?".$post;
+        $url="http://localhost/churchms/api/?".$post;
     }elseif($_SESSION['server'] == 'server'){
-     echo   $url="http://krypton.myddns.rocks/churchms/data/?".$post;
-     exit();
+        $url="http://localhost/churchms/data/?".$post;
     }else{
         header("location: ?_route=dashboard&connection=error");
     }

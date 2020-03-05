@@ -6,9 +6,9 @@
  * Time: 10:44 AM
  */
 
-function cmbPosition($conn){
+function cmbPosition($conn,$r){
 
-    $id =  $_SESSION['church'];
+    $id = $r['church_id'];
     $status = 1;
 
     $sql = "SELECT * FROM `get_position` where `churchID`=? and `statusID`=?";
@@ -26,9 +26,9 @@ function cmbPosition($conn){
     }
 }
 
-function cmbGroup($conn){
+function cmbGroup($conn,$r){
 
-    $id = $_SESSION['church'];
+    $id = $r['church_id'];
     $status = 1;
 
     $sql = "SELECT * FROM `get_groups` where `churchID`=? and `statusID`=?";
@@ -46,9 +46,9 @@ function cmbGroup($conn){
     }
 }
 
-function cmbBranch($conn){
+function cmbBranch($conn,$r){
 
-    $id = $_SESSION['church'];
+    $id = $r['church_id'];
     $status = 1;
 
     $sql = "SELECT * FROM `get_branch` where `churchID`=? and `statusID`=?";
@@ -122,7 +122,7 @@ function cmbCountry($conn){
 
 function cmbBranchSMS($conn){
 
-    $id = $_SESSION['church'];
+    $id = $r['church_id'];
     $status = 1;
 
     $sql = "SELECT * FROM `get_branch` where `churchID`=? and `statusID`=?";

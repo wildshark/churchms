@@ -44,7 +44,7 @@ class modal{
 
     function sign_up($conn,$data){
 
-        $id = $data['id'];
+        $id = $data['church_id'];
         $name = $data['name'];
         $surname = $data['surname'];
         $church = $data['church'];

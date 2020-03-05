@@ -1,14 +1,9 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Andrew Quaye
- * Date: 14/06/2019
- * Time: 10:45 AM
- */
+<?php 
 
-function total_cash_dr($conn){
 
-    $id = $_SESSION['church'];
+function total_cash_dr($conn,$data){
+
+    $id = $data['id'];
     $sql="SELECT * FROM `get_transaction_total` where `churchID`=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i",$id);
@@ -20,16 +15,14 @@ function total_cash_dr($conn){
     if ($result->num_rows == 0) {
         return 0.00;
     }else{
-        while($r = $result->fetch_assoc()) {
-
-            return $r['cDR'];
-        }
+        $r = $result->fetch_assoc();
+        return $r['cDR'];
     }
 }
 
-function total_cash_cr($conn){
+function total_cash_cr($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $sql="SELECT * FROM `get_transaction_total` where `churchID`=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i",$id);
@@ -41,16 +34,14 @@ function total_cash_cr($conn){
     if ($result->num_rows == 0) {
         return 0.00;
     }else{
-        while($r = $result->fetch_assoc()) {
-
-            return $r['cCR'];
-        }
+        $r = $result->fetch_assoc();
+        return $r['cCR'];
     }
 }
 
-function total_bank_dr($conn){
+function total_bank_dr($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $sql="SELECT * FROM `get_transaction_total` where `churchID`=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i",$id);
@@ -62,16 +53,14 @@ function total_bank_dr($conn){
     if ($result->num_rows == 0) {
         return 0.00;
     }else{
-        while($r = $result->fetch_assoc()) {
-
-            return $r['bDR'];
-        }
+        $r = $result->fetch_assoc();
+        return $r['bDR'];
     }
 }
 
-function total_bank_cr($conn){
+function total_bank_cr($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $sql="SELECT * FROM `get_transaction_total` where `churchID`=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i",$id);
@@ -83,16 +72,14 @@ function total_bank_cr($conn){
     if ($result->num_rows == 0) {
         return 0.00;
     }else{
-        while($r = $result->fetch_assoc()) {
-
-            return $r['bCR'];
-        }
+        $r = $result->fetch_assoc();
+        return $r['bCR'];
     }
 }
 
-function totalPOPULATION($conn){
+function totalPOPULATION($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
 
     $sql="SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? GROUP BY churchID";
     $stmt = $conn->prepare($sql);
@@ -103,60 +90,65 @@ function totalPOPULATION($conn){
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        while($r = $result->fetch_assoc()) {
-            return $r['total'];
-        }
+        $r = $result->fetch_assoc();
+        return $r['total'];
+    }else{
+        return 0;
     }
 }
 
-function totalMale($conn){
+function totalMale($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $grander = 1;
     $age = 17;
 
-    $sql="SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? and age>? and genderID=? GROUP BY churchID";
+    $sql =  $sql ="SELECT * FROM `get_population_summary` where churchID=? and genderID=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iii",$id,$age,$grander);
+    $stmt->bind_param("ii",$id,$grander);
 
     $stmt->execute();
 
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        while($r = $result->fetch_assoc()) {
-            return $r['total'];
-        }
+        $r = $result->fetch_assoc();
+        return $r['total'];
+    }else{
+        return 0;
     }
 }
 
-function totalFemale($conn){
+function totalFemale($conn,$data)
+{
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $grander = 2;
     $age = 17;
 
-    $sql="SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? and age>? and genderID=? GROUP BY churchID";
+    $sql ="SELECT * FROM `get_population_summary` where churchID=? and genderID=?";
+    //$sql = "SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? and age>? and genderID=? GROUP BY churchID";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iii",$id,$age,$grander);
+    $stmt->bind_param("ii", $id,$grander);
 
     $stmt->execute();
 
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        while($r = $result->fetch_assoc()) {
-            return $r['total'];
-        }
+        $r = $result->fetch_assoc();
+        return $r['total'];
+    }else{
+        return 0;
     }
 }
 
-function totalKIDS($conn){
+function totalKIDS($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $age = 17;
 
-    $sql="SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? and age<? GROUP BY churchID";
+    /**$sql="SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? GROUP BY churchID";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii",$id,$age);
 
@@ -165,15 +157,17 @@ function totalKIDS($conn){
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        while($r = $result->fetch_assoc()) {
-            return $r['total'];
-        }
-    }
+        $r = $result->fetch_assoc();
+        return $r['total'];
+    }else{
+        return 0;
+    }**/
+    return 0;
 }
 
-function cashDASHBROAD($conn){
+function cashDASHBROAD($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
 
     $sql="SELECT * FROM `get_transaction_total` where `churchID`=?";
     $stmt = $conn->prepare($sql);
@@ -184,20 +178,22 @@ function cashDASHBROAD($conn){
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        while($r = $result->fetch_assoc()) {
-            $dr = $r['cDR'];
-            $cr = $r['cCR'];
-            $bal = $r['cTotal'];
-
-        }
+        $r = $result->fetch_assoc();
+        $dr = $r['cDR'];
+        $cr = $r['cCR'];
+        $bal = $dr - $cr;
+    }else{
+        $dr = 0;
+        $cr = 0;
+        $bal = 0;
     }
 
     return array("DR"=>$dr,"CR"=>$cr,"BAL"=>$bal);
 }
 
-function bankDASHBROAD($conn){
+function bankDASHBROAD($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
 
     $sql="SELECT * FROM `get_transaction_total` where `churchID`=?";
     $stmt = $conn->prepare($sql);
@@ -208,20 +204,22 @@ function bankDASHBROAD($conn){
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        while($r = $result->fetch_assoc()) {
-            $dr = $r['bDR'];
-            $cr = $r['bCR'];
-            $bal = $r['bTotal'];
-
-        }
+        $r = $result->fetch_assoc();
+        $dr = $r['bDR'];
+        $cr = $r['bCR'];
+        $bal = $dr - $cr;
+    }else{
+        $dr =0;
+        $cr =0;
+        $bal = 0;
     }
 
     return array("DR"=>$dr,"CR"=>$cr,"BAL"=>$bal);
 }
 
-function monthlyTRANSCTION_CASH($conn){
+function monthlyTRANSCTION_CASH($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $type = 1;
 
     //$sql="SELECT * FROM `get_monthly_transaction` where `churchID`=? and tranTYpeID=? LIMIT 0, 7";
@@ -263,23 +261,34 @@ function monthlyTRANSCTION_CASH($conn){
             }else{
                 $n=1;
             }
+            $data = array(
+                "serial"=>$n,
+                "date"=>$date,
+                "dr"=>$dr,
+                "cr"=>$cr,
+                "bal"=>$bal
+            );
 
-            echo"
-                <tr>
-                    <td class='text-center'>{$n}</td>
-                    <td class='text-center'>{$date}</td>
-                    <td class='text-right'>{$dr}</td>
-                    <td class='text-right'>{$cr}</td>
-                    <td class='text-right'>{$bal}</td>
-                </tr>
-            ";
+            $row[] = $data;
         }
+        return $row;
+    }else{
+        $data = array(
+            "serial"=>null,
+            "date"=>null,
+            "dr"=>0,
+            "cr"=>0,
+            "bal"=>0
+        );
+
+        $row[] = $data;
+        return $row;
     }
 }
 
-function monthlyTRANSCTION_BANK($conn){
+function monthlyTRANSCTION_BANK($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $type = 2;
 
 
@@ -322,24 +331,36 @@ function monthlyTRANSCTION_BANK($conn){
                 $n=1;
             }
 
-            echo"
-                <tr>
-                    <td class='text-center'>{$n}</td>
-                    <td class='text-center'>{$date}</td>
-                    <td class='text-right'>{$dr}</td>
-                    <td class='text-right'>{$cr}</td>
-                    <td class='text-right'>{$bal}</td>
-                </tr>
-            ";
+            $data = array(
+                "serial"=>$n,
+                "date"=>$date,
+                "dr"=>$dr,
+                "cr"=>$cr,
+                "bal"=>$bal
+            );
+
+            $row[] = $data;
         }
+        return $row;
+    }else{
+        $data = array(
+            "serial"=>null,
+            "date"=>null,
+            "dr"=>0,
+            "cr"=>0,
+            "bal"=>0
+        );
+
+        $row[] = $data;
+        return $row;
     }
 }
 
-function monthlyTRANSCTION_INCOME($conn){
+function monthlyTRANSCTION_INCOME($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
 
-    $sql="SELECT churchID, cDate, Sum(income) AS total FROM get_income_exp where churchID=? GROUP BY churchID,cDate LIMIT 0, 7";
+    $sql="SELECT churchID, cDate, Sum(income) AS total FROM get_ledger where churchID=? GROUP BY churchID,cDate LIMIT 0, 7";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i",$id);
 
@@ -358,22 +379,29 @@ function monthlyTRANSCTION_INCOME($conn){
                 $n=1;
             }
 
-            echo"
-                <tr>
-                    <td class='text-center'>{$n}</td>
-                    <td class='text-center'>{$date}</td>
-                    <td class='text-right'>{$amount}</td>
-                </tr>
-            ";
+            $row = array(
+                "serial"=>$n,
+                "date"=>$date,
+                "amount"=>$amount
+            );
         }
+        return $row;
+    }else{
+        $row = array(
+            "serial"=>null,
+            "date"=>null,
+            "amount"=>0
+        );
+
+        return $row;
     }
 }
 
-function monthlyTRANSCTION_EXPENSES($conn){
+function monthlyTRANSCTION_EXPENSES($conn,$data){
 
-    $id = $_SESSION['church'];
+    $id = $data['id'];
 
-    $sql="SELECT churchID, cDate, Sum(expense) AS total FROM get_income_exp where churchID=? GROUP BY churchID,cDate LIMIT 0, 7";
+    $sql="SELECT churchID, cDate, Sum(expense) AS total FROM get_ledger where churchID=? GROUP BY churchID,cDate LIMIT 0, 7";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i",$id);
 
@@ -392,21 +420,28 @@ function monthlyTRANSCTION_EXPENSES($conn){
                 $n=1;
             }
 
-            echo"
-                <tr>
-                    <td class='text-center'>{$n}</td>
-                    <td class='text-center'>{$date}</td>
-                    <td class='text-right'>{$amount}</td>
-                </tr>
-            ";
+            $row = array(
+                "serial"=>$n,
+                "date"=>$date,
+                "amount"=>$amount
+            );
         }
+        return $row;
+    }else{
+
+        $row = array(
+            "serial"=>null,
+            "date"=>null,
+            "amount"=>0
+        );
+        return $row;
     }
 }
 
-function data_count_sms($conn){
+function data_count_sms($conn,$data){
 
     $date= date("Y-m");
-    $id = $_SESSION['church'];
+    $id = $data['id'];
     $sql ="SELECT * FROM `get_count_sms_total` where `churchID`=? LIMIT 0, 1000";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s",$id);
@@ -420,5 +455,4 @@ function data_count_sms($conn){
         echo $row['total'];
     }
 }
-
 ?>
