@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set("UTC");
 
-    $host = 'localhost';
-    $username = 'root';
-    $password = '';
+    $host = '142.93.242.183';
+    $username = 'iquipe';
+    $password = '@passWD8282';
     $database = 'church_db';
     $port = '3306';
 
