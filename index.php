@@ -11,7 +11,7 @@ $bio = config\bios();
 
 $_SESSION['token'] = $bio['terminal_key'];
 //choose there url connection for the server
-$_SESSION['server'] = 'local';
+$_SESSION['server'] = 'offline';
 $_SESSION['church'] = '1';
 
 if(isset($_REQUEST['submit'])){

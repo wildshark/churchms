@@ -18,11 +18,7 @@ if($_SERVER['start'] === "start" && ($_COOKIE['token'] === $_SESSION['token'])){
     switch ($action){
 
         case"add-profile";
-
-
-
             echo var_export($data);
-
         break;
 
         case"update-church";

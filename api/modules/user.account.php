@@ -10,7 +10,7 @@ namespace user;
 
 class modal{
 
-    function login($conn,$login){
+    public static function login($conn,$login){
 
         $username = $login['username'];
         $password = $login['password'];
@@ -42,7 +42,7 @@ class modal{
         }
     }
 
-    function sign_up($conn,$data){
+    public static function sign_up($conn,$data){
 
         $id = $data['church_id'];
         $name = $data['name'];

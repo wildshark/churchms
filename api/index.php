@@ -1,7 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 include "connection.php";
-
 include "modules/user.account.php";
 include "modules/dashboard.php";
 include "modules/combo.php";
@@ -10,7 +12,6 @@ include "modules/member.php";
 include "modules/book.keep.php";
 include "modules/fundraising.php";
 include "modules/tithe.php";
-
 
 if((!$_REQUEST)|| (!$_REQUEST['endpoint'])){
     $data["error"]=500;

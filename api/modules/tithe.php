@@ -10,7 +10,7 @@ namespace tithe;
 
 class account{
 
-    function add($conn,$data){
+    public static function add($conn,$data){
 
         $church_id = $data['church_id'];
         $book_id = 1;
@@ -36,7 +36,7 @@ class account{
         }
     }
 
-    function data($conn,$data){
+    public static function data($conn,$data){
 
         $churchID = $data['church_id'];
         $id = 1;
@@ -78,7 +78,7 @@ class account{
         }
     }
 
-    function system_tithe_payment($conn,$data){
+    public static function system_tithe_payment($conn,$data){
 
         $churchID = $data['church_id'];
         $date = $data['date'];
@@ -110,7 +110,7 @@ class account{
 
     }
 
-    function system_tithe($conn,$data){
+    public static function system_tithe($conn,$data){
 
         $churchID = $data['church_id'];
 

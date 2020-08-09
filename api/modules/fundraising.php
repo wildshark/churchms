@@ -10,7 +10,7 @@ namespace fundraising;
 
 class account{
 
-    function add_purpose($conn,$data){
+    public static function add_purpose($conn,$data){
 
         $churchID = $data['church_id'];
         $date = $data['date'];
@@ -28,7 +28,7 @@ class account{
         }
     }
 
-    function edit_purpose($conn,$data){
+    public static function edit_purpose($conn,$data){
 
         $churchID = $data['church_id'];
         $id = $data['member_id'];
@@ -47,7 +47,7 @@ class account{
         }
     }
 
-    function fundraising_data($conn,$data){
+    public static function fundraising_data($conn,$data){
 
         $churchID = $data['church_id'];
 
@@ -75,7 +75,7 @@ class account{
 
     }
 
-    function fundraising_data_detail($conn,$data){
+    public static function fundraising_data_detail($conn,$data){
 
         $churchID = $data['church_id'];
         $id = $data['id'];
@@ -109,7 +109,7 @@ class account{
 
     }
 
-    function fundraising_summary($conn,$data){
+    public static function fundraising_summary($conn,$data){
 
         $churchID = $data['church_id'];
         $id = $data['id'];
@@ -143,7 +143,7 @@ class account{
         }
     }
 
-    function add_raise_payment_fundraising($conn,$data){
+    public static function add_raise_payment_fundraising($conn,$data){
 
         $id = $data['church_id'];
         $time = date("Y-m-d H:i:s");

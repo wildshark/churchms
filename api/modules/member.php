@@ -9,7 +9,7 @@ namespace membership;
 
 class model{
 
-    function add_member($conn,$data){
+    public static function add_member($conn,$data){
 
         if($data['tab'] == 1){
 
@@ -74,7 +74,7 @@ class model{
         }
     }
 
-    function update_member($conn,$data){
+    public static function update_member($conn,$data){
 
         if($data['tab'] == 1){
 
@@ -138,7 +138,7 @@ class model{
         }
     }
 
-    function view_member($conn,$data){
+    public static function view_member($conn,$data){
 
         $id = $data['id'];
         
@@ -162,7 +162,7 @@ class model{
         return $record;
     }
 
-    function filter_member($conn,$data){
+    public static function filter_member($conn,$data){
 
         $churchID = $data['church_id'];
         $memberID = $data['member_id'];
@@ -340,7 +340,7 @@ class model{
         return $data;
     }
 
-    function delete_member($conn,$data){
+    public static function delete_member($conn,$data){
 
         $id = $data['member_id'];
 

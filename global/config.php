@@ -1,6 +1,5 @@
 <?php 
 namespace config;
-//$data="i";
 
 function bios(){
 
@@ -78,10 +77,10 @@ function connection($data){
     $post = http_build_query($data);
     //$url = $url."?".$post;
 
-    if($_SESSION['server'] == 'local'){
+    if($_SESSION['server'] == 'offline'){
         $url="http://localhost/churchms/api/?".$post;
     }elseif($_SESSION['server'] == 'server'){
-        $url="http://localhost/churchms/data/?".$post;
+        $url="https://iquipe.000webhostapp.com/church_ms_api/?".$post;
     }else{
         header("location: ?_route=dashboard&connection=error");
     }

@@ -37,10 +37,11 @@ switch ($page) {
     case "dashboard";
         $template['title'] = "Dashboard";
 
-        $cash['endpoint'] ='dashboard';
-        $result = config\connection($cash);
+        //$dash['endpoint'] ='dashboard';
+        //$result = config\connection($dash);
+        $result = file_get_contents("http://142.93.242.183/churchms/api/?endpoint=dashboard&church_id=1&memberID=53");
         $dashboard = json_decode($result,true);
-
+    
         $cash['endpoint'] ="monthly-cash-transaction";
         $result = config\connection($cash);
         $cash_summary = json_decode($result);

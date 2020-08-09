@@ -12,7 +12,7 @@ class model{
     //200 successful
     //500 connection fail
 
-    function all_book($conn,$data){
+    public static function all_book($conn,$data){
 
         $church = $data['id'];
 
@@ -37,7 +37,7 @@ class model{
         }
     }
 
-    function add_book_keeping($conn,$data){
+    public static function add_book_keeping($conn,$data){
 
         $church = $data['church_id'];
         $bookID = $data['book_id'];
@@ -55,7 +55,7 @@ class model{
         }
     }
 
-    function add_income_entry($conn,$data){
+    public static function add_income_entry($conn,$data){
 
         $time = $data['time'];
         $church = $data['church_id'];
@@ -85,7 +85,7 @@ class model{
         }
     }
 
-    function add_expenses_entry($conn,$data){
+    public static function add_expenses_entry($conn,$data){
 
         $time = $data['time'];
         $church = $data['church_id'];
@@ -115,7 +115,7 @@ class model{
         }
     }
 
-    function option($conn,$data){
+    public static function option($conn,$data){
 
         $option = $data[0];
         $id = $data[1];
@@ -135,7 +135,7 @@ class model{
         }
     }
 
-    function data_cash_book($conn,$data){
+    public static function data_cash_book($conn,$data){
 
         $id = $data['id'];
         $tranType = 1;
@@ -201,7 +201,7 @@ class model{
     }
     
     
-    function data_bank_book($conn,$data){
+    public static function data_bank_book($conn,$data){
 
         $id = $data['id'];
         $tranType = 2;
@@ -264,7 +264,7 @@ class model{
         return $row;
     }
 
-    function income_financial_report($conn,$data){
+    public static function income_financial_report($conn,$data){
 
         $id = $data['church_id'];
         $start = $data['start'];
@@ -298,7 +298,7 @@ class model{
         }
     }
 
-    function expenses_financial_report($conn,$data){
+    public static function expenses_financial_report($conn,$data){
 
         $id = $data['church_id'];
         $start = $data['start'];

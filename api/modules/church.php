@@ -9,7 +9,7 @@ namespace church;
 
 class model{
 
-    function groups($conn,$data){
+    public static function groups($conn,$data){
         
         $status = 1;
         $group = $data['groups'];
@@ -26,7 +26,7 @@ class model{
         }
     }
 
-    function position($conn,$data){
+    public static function position($conn,$data){
 
         $status= 1;
         $position = $data['position'];
@@ -44,7 +44,7 @@ class model{
         }
     }
 
-    function branch($conn,$data){
+    public static function branch($conn,$data){
 
         $status = 1;
         $branch = $data['branch'];
@@ -62,7 +62,7 @@ class model{
         }
     }
 
-    function add_church($conn,$data){
+    public static function add_church($conn,$data){
 
         $tab = $data[0];
 
@@ -100,7 +100,7 @@ class model{
         }
     }
 
-    function option($conn,$data){
+    public static function option($conn,$data){
 
         $option = $data[0];
         $id = $data[1];
