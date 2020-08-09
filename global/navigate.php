@@ -39,7 +39,7 @@ switch ($page) {
 
         //$dash['endpoint'] ='dashboard';
         //$result = config\connection($dash);
-        $result = file_get_contents("http://142.93.242.183/churchms/api/?endpoint=dashboard&church_id=1&memberID=53");
+        $result = file_get_contents("http://localhost/churchms/api/?endpoint=dashboard&church_id=1&memberID=53");
         $dashboard = json_decode($result,true);
     
         $cash['endpoint'] ="monthly-cash-transaction";

@@ -81,7 +81,7 @@ function totalPOPULATION($conn,$data){
 
     $id = $data['id'];
 
-    $sql="SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? GROUP BY churchID";
+    $sql="SELECT * FROM get_population WHERE churchID=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i",$id);
 
@@ -103,7 +103,7 @@ function totalMale($conn,$data){
     $grander = 1;
     $age = 17;
 
-    $sql =  $sql ="SELECT * FROM `get_population_summary` where churchID=? and genderID=?";
+    $sql =  $sql ="SELECT * FROM `get_population_gender` where churchID=? and genderID=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii",$id,$grander);
 
@@ -126,7 +126,7 @@ function totalFemale($conn,$data)
     $grander = 2;
     $age = 17;
 
-    $sql ="SELECT * FROM `get_population_summary` where churchID=? and genderID=?";
+    $sql ="SELECT * FROM `get_population_gender` where churchID=? and genderID=?";
     //$sql = "SELECT Count(total)as total,churchID FROM get_population_summary  WHERE churchID=? and age>? and genderID=? GROUP BY churchID";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $id,$grander);

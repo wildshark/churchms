@@ -26,12 +26,9 @@ if(isset($_REQUEST['submit'])){
             $user['password'] = $_POST['password'];
             $result = config\connection($user);
             $result = json_decode($result,true);
-
-
             if($result['error']==  200){
                $_SESSION['church'] = $result['data']['churchID'];
                $_SESSION['access'] = $result['data']['access'];
-
                if(isset($_SESSION['church'] ) && isset( $_SESSION['access'])){
                    $_SESSION['username'] =  $user['username'];
                    header("location: ?_route=dashboard");
