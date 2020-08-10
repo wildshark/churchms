@@ -29,17 +29,20 @@ switch ($page) {
         break;
 
     case"profile";
-        $app->dashboard = "profile";
+        $template['title'] = "Profile";
+        $url['endpoint'] = 'church-profile';
+        $url['church_id'] = $_SESSION['church'];
+        $result = file_get_contents("http://localhost/churchms/api/?".http_build_query($url));
+        $profile = json_decode($result,true);
         $content = "membership/profile.php";
         require "template/dashboard.php";
-        break;
+    break;
 
     case "dashboard";
         $template['title'] = "Dashboard";
-
-        //$dash['endpoint'] ='dashboard';
-        //$result = config\connection($dash);
-        $result = file_get_contents("http://localhost/churchms/api/?endpoint=dashboard&church_id=1&memberID=53");
+        $dash['endpoint'] ='dashboard';
+        $dash['church_id'] = $_SESSION['church'];
+        $result = file_get_contents("http://localhost/churchms/api/?".http_build_query($dash));
         $dashboard = json_decode($result,true);
     
         $cash['endpoint'] ="monthly-cash-transaction";
@@ -52,7 +55,7 @@ switch ($page) {
 
         $content = "dashboard.php";
         require "template/dashboard.php";
-        break;
+    break;
 
     case"new.member";
 
@@ -190,7 +193,6 @@ switch ($page) {
 
     case"bank.book";
         $template['title'] = "Bank Book";
-
         $r['endpoint'] ='dashboard';
         $result = config\connection($r);
         $bank = json_decode($result,true);
@@ -240,7 +242,7 @@ switch ($page) {
 
     //setup
     case"set.book.keeping";
-        $app->profile = "Book Keeping Setup";
+        $template['title'] = "Book Keeping Setup";
         $content = "setup/book.keeping.php";
         require "template/profile.php";
         break;
@@ -265,12 +267,10 @@ switch ($page) {
 
     case"fundraising-data";
         $template['title'] = "Fundraising";
-
         $r['endpoint'] ='fundraising-data';
         $result = config\connection($r);
         $record = json_decode($result);
-        //var_export($record);
-        //exit();
+
         $content = "fundraising/fundraising.php";
         require "template/table.php";
     break;
@@ -283,8 +283,7 @@ switch ($page) {
         //summary
         $result = config\connection($view);
         $fundraising = json_decode($result,true);
-        //var_export($fundraising);
-        //exit();
+
         if((isset($fundraising['error'])) && ($fundraising['error'] == 500)){
             $expected_amt = 0;
             $raised_amt = 0;
@@ -325,8 +324,6 @@ switch ($page) {
         $view['endpoint'] = $_REQUEST['_route'];
         $result = config\connection($view);
         $record = json_decode($result);
-        //var_dump($record);
-        //exit();
         $content = "account_book/tithe.book.php";
         require "template/table.php";
 

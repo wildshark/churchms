@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -12,7 +11,6 @@ $bio = config\bios();
 $_SESSION['token'] = $bio['terminal_key'];
 //choose there url connection for the server
 $_SESSION['server'] = 'offline';
-$_SESSION['church'] = '1';
 
 if(isset($_REQUEST['submit'])){
     $endpoint = $_REQUEST['submit'];
@@ -42,7 +40,7 @@ if(isset($_REQUEST['submit'])){
 
         case"sign-up";
 
-            $sign_up['endpoint'] = $_POST['submit'];
+            $sign_up['endpoint'] = "sign-up-church";
             $sign_up['name'] = $_POST['first-name'];
             $sign_up['surname'] = $_POST['last-name'];
             $sign_up['church'] = $_POST['church'];
@@ -54,16 +52,14 @@ if(isset($_REQUEST['submit'])){
             $sign_up['address'] = $_POST['address'];
             $sign_up['username'] = $_POST['username'];
             $sign_up['password'] = $_POST['password'];
-
+            
             $result = config\connection($sign_up);
             $result = json_decode($result, true);
-
             if ($result['error'] == 200){
-                echo"
-                <script src=\"https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js\"></script>
-                <script type='text/javascript'>".config\wave($sign_up)."</script>";
+                $pin = $result['data']['pin'];
+                require "template/donation.php";
             }else{
-                echo "server error try again";
+                require "template/505.php";
             }
 
         break;
@@ -223,6 +219,33 @@ if(isset($_REQUEST['submit'])){
                header("location: ?_route=set.church&status=false");
            }
        break;
+
+       case"update-church";
+            $_POST['endpoint'] ="update-church-profile";
+            $_POST['church_id'] = $_SESSION['church'];
+            $result = config\connection($_POST);
+            $result = json_decode($result, true);
+
+           if ($result['error'] == 200){
+               header("location: ?_route=profile&status=success");
+           }else{
+               header("location: ?_route=profile&status=false");
+           }
+       break;
+
+       case"update-login";
+            $_POST['endpoint'] ="update-profile-login";
+            $_POST['church_id'] = $_SESSION['church'];
+            $result = config\connection($_POST);
+            $result = json_decode($result, true);
+
+            if ($result['error'] == 200){
+                header("location: ?_route=profile&status=success");
+            }else{
+                header("location: ?_route=profile&status=false");
+            }
+        break;
+
 
        default:
            require "model\account.php";

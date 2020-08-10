@@ -38,7 +38,7 @@ if((!$_REQUEST)|| (!$_REQUEST['endpoint'])){
             }
         break;
 
-        case "sign-up";
+        case "sign-up-church";
 
             $result = user\modal::sign_up($church_db,$post_data);
             if($result == false){
@@ -47,7 +47,45 @@ if((!$_REQUEST)|| (!$_REQUEST['endpoint'])){
             }else {
                 $data['error'] = 200;
                 $data['msg'] = "successful";
+                $data['data']= $result;
             }
+        break;
+
+        case"update-church-profile";
+            $result = user\modal::update_church_profile($church_db,$_REQUEST);
+            if($result == false){
+                $data['error'] = 500;
+                $data['msg'] = "invalid username and password";
+            }else {
+                $data['error'] = 200;
+                $data['msg'] = "successful";
+            }
+        break;
+
+        case"update-profile-login";
+            $result = user\modal::update_profile_login($church_db,$_REQUEST);
+            if($result == false){
+                $data['error'] = 500;
+                $data['msg'] = "invalid username and password";
+            }else {
+                $data['error'] = 200;
+                $data['msg'] = "successful";
+                $data = $result;
+            }
+        break;
+
+        case"church-profile";
+            $request['id'] = $_REQUEST['church_id'];
+            $result = user\modal::get_church_profile($church_db,$request);
+            if ($result == false){
+                $data['error'] = 500;
+                $data['msg']="Connection Failed";
+            }else{
+                $data['error'] = 200;
+                $data['msg']="successful";
+                $data = $result;
+            }
+
         break;
 
         case"dashboard";

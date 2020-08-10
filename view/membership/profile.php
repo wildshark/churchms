@@ -109,7 +109,7 @@
                                 <button type="button" class="btn btn-default btn-block">Cancel</button>
                             </div>
                             <div class="col-xs-6">
-                                <button type="submit" name="submit" value="update-church" class="btn btn-app btn-block">Save<span class="hidden-xs"> changes</span></button>
+                                <button type="submit" name="submit" value="update-login" class="btn btn-app btn-block">Save<span class="hidden-xs"> changes</span></button>
                             </div>
                         </div>
                     </form>
